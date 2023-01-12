@@ -1,34 +1,41 @@
-import { useState } from 'react'
+import React, { SetStateAction, useState, ChangeEvent } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App: React.FC = () => {
+  const [query, setQuery] = useState<string>("");
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <SearchBar query={query} onSearch={(e:ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}/>
     </div>
   )
 }
 
-export default App
+interface I_SearchBar_props {
+  query:string;
+  onSearch:(e:ChangeEvent<HTMLInputElement>) => void;
+}
+export const SearchBar: React.FC<I_SearchBar_props> = ({query,onSearch}) => {
+  return (
+    <div className="search">
+      <input 
+        type="text" placeholder="Search" onChange={onSearch} value={query} 
+        className="input-field" name="search" id="search"
+      />
+      <button className="searchBtn">SEARCH</button>
+      {/* <label htmlFor="search" className="input-label">Search</label> */}
+    </div>
+  )
+}
+
+interface I_Quote_props {
+  quote:string;
+}
+export const Quote: React.FC<I_Quote_props> = ({quote}) => {
+  return (
+    <div className="card">
+      <p className="quote">{quote}</p>
+    </div>
+  )
+}
