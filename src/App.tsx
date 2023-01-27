@@ -1,41 +1,41 @@
-import React, { SetStateAction, useState, ChangeEvent } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React, { useEffect, useState, ChangeEvent } from 'react'
+import './css/App.css'
 
-export const App: React.FC = () => {
+import { SearchBar } from './components/SearchBar';
+import { I_Quote, Quote } from './components/Quote';
+
+export const App = () => {
   const [query, setQuery] = useState<string>("");
+  const [quotes, setQuotes] = useState<I_Quote[]>([]);
+  const [author, setAuthor] = useState<string>("");
+  const [quote, setQuote] = useState<string>("");
+
+  // When Page Loads
+  useEffect(() => {
+    fetch("https://usu-quotes-mimic.vercel.app/api/random")
+    .then(result => result.json())
+    .then(json => {
+      setQuote(json.content);
+      setAuthor(json.author);
+    });
+
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    fetch(`https://usu-quotes-mimic.vercel.app/api/search?query=${query}`)
+    .then(result => result.json())
+    .then(json => setQuotes(json.results));
+  }, [query]);
 
   return (
     <div className="App">
-      <SearchBar query={query} onSearch={(e:ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}/>
-    </div>
-  )
-}
-
-interface I_SearchBar_props {
-  query:string;
-  onSearch:(e:ChangeEvent<HTMLInputElement>) => void;
-}
-export const SearchBar: React.FC<I_SearchBar_props> = ({query,onSearch}) => {
-  return (
-    <div className="search">
-      <input 
-        type="text" placeholder="Search" onChange={onSearch} value={query} 
-        className="input-field" name="search" id="search"
-      />
-      <button className="searchBtn">SEARCH</button>
-      {/* <label htmlFor="search" className="input-label">Search</label> */}
-    </div>
-  )
-}
-
-interface I_Quote_props {
-  quote:string;
-}
-export const Quote: React.FC<I_Quote_props> = ({quote}) => {
-  return (
-    <div className="card">
-      <p className="quote">{quote}</p>
+      <h1 className="header">Quote Search</h1>
+      <SearchBar query={query} setQuery={setQuery}/>
+      {quotes.length == 0 ? <Quote _id="random" content={quote} author={author}/> : ""}
+      {
+        quotes.map(item => <Quote key={item._id} _id={item._id} content={item.content} author={item.author}/>)
+      }
     </div>
   )
 }
