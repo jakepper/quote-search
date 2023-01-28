@@ -16,7 +16,6 @@ export const SearchBar: React.FC<I_SearchBar_props> = ({ query, setQuery }) => {
     <div className="searchbar">
       <form className="searchbar__form" onSubmit={searchHandler}>
         <input id="queryInput" type="text" className="searchbar__input" placeholder="Search" />
-        <button className="searchbar__btn" type="submit">SEARCH</button>
       </form>
     </div>
     

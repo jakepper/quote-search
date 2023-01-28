@@ -2,35 +2,30 @@
 /* center the quote in the page */
 .quote-wrapper {
    display: flex;
-   height: 100vh;
-   padding: 0 20px;
 }
 
 /* quote main style */
 .quote {
     position: relative;
     max-width: 620px;
-    margin: 80px auto;
+    margin: 40px 20px;
     align-self: center;
 }
 
 /* quote content */
 .quote .quote__content {
-    /* font-family: 'Abril Fatface', cursive; */
     position: relative; /* for pseudos */
     color: var(--secondary);
-    /* font-size: 2.8rem; */
     font-weight: normal;
-    line-height: 1;
     margin: 0;
-    border: 2px solid var(--primary);
     border: solid 2px;
     border-radius:20px;
-    padding: 25px;
+    padding: 16px;
 }
 
 .quote .quote__content span {
-    color: var(--primary);
+    font-weight: 500;
+    color: var(--accent);
 }
 
 /* quote right double quotes */
@@ -52,27 +47,17 @@
     content:"";
     position: absolute;
     width: 80px;
-    border: 6px solid #292a2b;
+    border: 6px solid var(--background);
     bottom: -3px;
     left: 50px;
     z-index: 2;
 }
 
-/* increase header size after 600px */
-@media all and (min-width: 600px) {
-    .quote .content {
-        font-size: 3rem;
-        line-height: 1.2;
-   }
-
-}
-
 /* quote author */
 .quote .quote__author {
+    letter-spacing: 3px;
     position: relative;
-    color: #ffffff;
-    font-size: 1.3rem;
-    font-weight: 400;
+    color: var(--primary);
     line-height: 1.2;
     margin: 0;
     padding-top: 15px;
@@ -84,4 +69,22 @@
  
 .quote .quote__author:first-letter {
   margin-left:-12px;
+}
+
+@media (max-width: 600px) {
+    .quote .quote__author {
+        font-size: 14px;
+    }
+    .quote .quote__content span {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 601px) {
+    .quote .quote__author {
+        font-size: 20px;
+    }
+    .quote .quote__content span {
+        font-size: 32px;
+    }
 }
