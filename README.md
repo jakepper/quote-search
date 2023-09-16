@@ -1,3 +1,3 @@
-# CS4610 - Quote Search
+# CS4610 - Quote Search (First React App)
 
-Hosted at - [Pages](https://jakepper.github.io/quote-search/)
+[View Here](https://jakepper.github.io/quote-search/)
